@@ -1,4 +1,14 @@
 var http = require('http');
+var colors = require('colors');
+
+//cargando configuraciones
+var config = require('./config/config');
+var IP = 'config.IP';
+var PORT = 'config.PORT';
+
+// tema de colors
+colors.setTheme(config.color_theme);
+
 var server = http.createServer(function(req, res){// codigo de nuestro server
 
     res.writeHead(200,{
@@ -8,6 +18,6 @@ var server = http.createServer(function(req, res){// codigo de nuestro server
     res.end('> Server Funcionando');
 });
 
-server.listen(3000,'127.0.0.1',function(){
-    console.log(`> Server working @http://127.0.0.1:3000/`);
+server.listen(PORT,IP,function(){
+    console.log(`> Server working @http://${IP}:${PORT}/`.info);
 });
