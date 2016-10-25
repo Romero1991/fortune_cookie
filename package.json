@@ -1,0 +1,19 @@
+{
+  "name": "08fortune_cookie",
+  "version": "1.0.0",
+  "description": "proyecto final de paw",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "#"
+  },
+  "keywords": [
+    "http_server"
+  ],
+  "author": "",
+  "license": "ISC"
+}
