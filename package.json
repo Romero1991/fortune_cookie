@@ -13,8 +13,10 @@
   },
   "keywords": [
     "http_server"
-  
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^1.11.0"
+  }
 }
