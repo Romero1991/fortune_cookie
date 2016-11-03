@@ -1,6 +1,9 @@
 var http = require('http');
 var colors = require('colors');
 var fs = require('fs');
+var mime = require('mime');
+var path = require('path');
+
 //cargando configuraciones
 var config = require('./config/config.js');
 var IP = config.IP;
@@ -9,37 +12,18 @@ var PORT = config.PORT;
 //colors.setTheme(config.color_theme);
 var server = http.createServer(function (req, res) {
     //extrayendo el path de la URL
-    var path = req.url;
+    var urlpath = req.url;
     // normalizando el path 
-    if(path==="/"){
-        path ="./static/index.html";
+    if(urlpath==="/"){
+        urlpath =path.resolve("./static/index.html");
     }else {
-        path = './static'+path;
+        urlpath = path.resolve('./static'+urlpath);
     }
-    console.log(`>Recusrso Solicitado: ${path}`);
+    console.log(`>Recusrso Solicitado: ${urlpath}`);
     // Decidiendo el conetent-Type enfuncion de la extencion del archivo solicitado
-    var ext = path;
-    var resp = ext.split(".");
-    switch(ext[2]){
-        case'html':
-         res.writeHead(200, {
-        'Content-Type': 'text/html'
-    });
-            break;
-        case'js':
-         res.writeHead(200, {
-        'Content-Type': 'text/javascript'
-    });
-            break;
-        case'css':
-         res.writeHead(200, {
-        'Content-Type': 'text/css'
-    });
-            break;
-        default:
-            break;
-        } 
-    fs.readFile(path, 'utf8',
+    var mimeType = mime.lookup(urlpath);
+    
+    fs.readFile(urlpath,
         function (err, Content) {
             if (err) {
                 console.log(`> Error al leer archivo: ${err}`);
@@ -49,7 +33,12 @@ var server = http.createServer(function (req, res) {
                 res.end("Error 500: Iternal Error...");
             } else {
                 //TODO: si sirve el archivo
-                console.log(">Se sirve el archivo: ./static/index.html ");
+                res.writeHead(200,{
+                    'Content-Type':mimeType
+                });
+
+
+                console.log(`>Se sirve el archivo: ${path}`);
                 res.end(Content);
             }
       });
