@@ -1,2 +1,4 @@
 #ignorando modulos del backend
 node_modules
+#Ignorando modulos frontend
+staic/vendor
